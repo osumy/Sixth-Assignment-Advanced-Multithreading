@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class PiCalculator {
 
     /**
-     * Calculate pi and represent it as a BigDecimal object with the given floating point number (digits after . )
+     * Calculate pi and represent it as a BigDecimal object with the given floating point number (digits after. )
      * There are several algorithms designed for calculating pi, it's up to you to decide which one to implement.
      Experiment with different algorithms to find accurate results.
 
@@ -27,13 +27,13 @@ public class PiCalculator {
         PI = PI.add(value);
     }
 
-    public BigDecimal Leibniz_Formula(int floatingPoint) throws InterruptedException {
-        PI = new BigDecimal(0, new MathContext(floatingPoint));
+    public BigDecimal Leibniz_Formula() throws InterruptedException {
+        PI = new BigDecimal(0);
         BigDecimal n = new BigDecimal(0);
-        ExecutorService threadPool =  Executors.newFixedThreadPool(10);
-        for (int i = 0; i < 10000; i++) {
-            Leibniz_Formula leibnizFormula = new Leibniz_Formula(floatingPoint, n);
-            n = n.add(new BigDecimal(100));
+        ExecutorService threadPool =  Executors.newFixedThreadPool(8);
+        for (int i = 0; i < 100; i++) {
+            Leibniz_Formula leibnizFormula = new Leibniz_Formula(n);
+            n = n.add(new BigDecimal(100000));
             threadPool.execute(leibnizFormula);
         }
         threadPool.shutdown();
@@ -42,8 +42,8 @@ public class PiCalculator {
     }
 
     public String calculate(int floatingPoint) throws InterruptedException {
-        BigDecimal pi = Leibniz_Formula(floatingPoint);
-        return pi.toString();
+        BigDecimal pi = Leibniz_Formula();
+        return pi.toString().substring(0, 2+floatingPoint);
     }
 
     public static void main(String[] args) {
