@@ -4,7 +4,9 @@ public class Resource {
 
     public static void accessResource() {
         try {
-            Thread.sleep(100);
+            Controller.semaphore.acquire();
+            Thread.sleep(1000);
+            Controller.semaphore.release();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
