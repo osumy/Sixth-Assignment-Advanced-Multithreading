@@ -1,5 +1,7 @@
 package sbu.cs.Semaphore;
 
+import java.time.LocalDateTime;
+
 public class Operator extends Thread {
 
     public Operator(String name) {
@@ -11,9 +13,11 @@ public class Operator extends Thread {
         for (int i = 0; i < 10; i++)
         {
             Resource.accessResource();         // critical section - a Maximum of 2 operators can access the resource concurrently
+            System.out.println(getName() + " accessed at " + LocalDateTime.now().toString() + " - number of times: " + (i+1));
             try {
-                sleep(500);
-            } catch (InterruptedException e) {
+                sleep(3000);
+            }
+            catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
